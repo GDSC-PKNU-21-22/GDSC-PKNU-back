@@ -1,22 +1,29 @@
 package com.gdsc.pknu.backend.data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import lombok.Data;
+import javax.persistence.*;
 
+import lombok.*;
+
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Builder
 @Entity
-@Data
 public class Member {
-    
+
     @Id
-    private String studentNumber;
-    private String name;
-    private String role;
-    private String phoneNumber;
-    private String major;
-    private int generation;
-    private String imagePath;
-    private String github;
-    private String certfilePath;
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(length = 20, nullable = false)
+    private String email;
+
+    @Column(length = 100, nullable = false)
+    private String password;
+
+    @Builder
+    public Member(Long id, String email, String password) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+    }
 }
