@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 @Getter
 public class ApiError {
 
+    private final String MESSAGE = "message";
+    private final String STATUS = "status";
     private final String msg;
     private final int status;
 
@@ -28,8 +30,8 @@ public class ApiError {
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("message", msg)
-                .append("status", status)
+                .append(MESSAGE, msg)
+                .append(STATUS, status)
                 .toString();
     }
 }
