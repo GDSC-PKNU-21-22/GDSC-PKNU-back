@@ -23,14 +23,21 @@ public class MemberRestController {
 
     @PostMapping()
     public ApiRes<RegisterResult> register(
-            @ModelAttribute RegisterRequest registerRequest,
+            @ModelAttribute RegisterRequest request,
             @RequestPart(required = false)MultipartFile imageFile
             ){
 
-        Member member = memberService.register(Member.from(
-                new Email(registerRequest.getEmail()), registerRequest.getPassword(), registerRequest.getStudentNumber(),
-                registerRequest.getName(), registerRequest.getMajor(), Role.USER
-                ));
+        Member member = memberService.register(Member.builder()
+                .email(new Email(request.getEmail()))
+                .password(request.getPassword())
+                .studentNumber(request.getStudentNumber())
+                .name(request.getName())
+                .phoneNumber(request.getPhoneNumber())
+                .majorId(request.getMajorId())
+                .role(Role.USER)
+                .imagePath(request.getImagePath())
+                .githubUrl(request.getGithubUrl())
+                .build());
 
         String token = member.generateApiToken(jwt, new String[]{"ROLE_USER"});
         return ApiRes.SUCCESS(new RegisterResult(new MemberDto(member), token));

@@ -17,7 +17,7 @@ public class MemberDto {
     private String studentNumber;
     private Role role;
     private String phoneNumber;
-    private String major;
+    private Long majorId;
     private int generation;
     private String imagePath;
     private String githubUrl;

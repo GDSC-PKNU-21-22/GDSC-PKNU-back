@@ -31,6 +31,6 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByEmail(email);
         if(member.isPresent()){
             throw new IllegalArgumentException("중복된 이메일입니다.");
-        };
+        }
     }
 }

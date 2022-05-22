@@ -1,14 +1,23 @@
 package com.gdsc.pknu.backend.controller.user;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+@Getter
+@Setter
 public class RegisterRequest {
     private String email;
     private String password;
     private String name;
     private String studentNumber;
-    private String major;
+    private Long majorId;
+    private String phoneNumber;
+    private int generation;
+    private String imagePath;
+    private String githubUrl;
+
 
     @Override
     public String toString() {
@@ -17,47 +26,12 @@ public class RegisterRequest {
                 .append("email", email)
                 .append("password", password)
                 .append("studentNumber", studentNumber)
-                .append("major", major)
+                .append("majorId", majorId)
+                .append("phoneNumber", phoneNumber)
+                .append("generation", generation)
+                .append("imagePath", imagePath)
+                .append("githubUrl", githubUrl)
                 .toString();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getStudentNumber() {
-        return studentNumber;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setStudentNumber(String studentNumber) {
-        this.studentNumber = studentNumber;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
 }
