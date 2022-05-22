@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import static com.gdsc.pknu.backend.controller.ApiRes.ERROR;
 
@@ -20,7 +21,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ERROR(throwable, status), headers, status);
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler({
+    @ExceptionHandler({
             IllegalArgumentException.class,
     })
     public ResponseEntity<?> handleBadRequestException(Exception e) {
