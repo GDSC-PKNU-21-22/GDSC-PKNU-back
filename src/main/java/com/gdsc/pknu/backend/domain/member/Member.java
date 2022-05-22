@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import com.gdsc.pknu.backend.domain.authentication.Jwt;
 import lombok.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -11,8 +13,9 @@ import static org.h2.mvstore.DataUtils.checkArgument;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of = {"id", "name"})
 @Getter
+@AllArgsConstructor
+@Builder
 public class Member {
 
     @Id @GeneratedValue
@@ -34,7 +37,7 @@ public class Member {
 
     private String phoneNumber;
 
-    private String major;
+    private Long majorId;
 
     private int generation;
 
@@ -49,14 +52,14 @@ public class Member {
 
     protected Member(
             Email email, String password, String studentNumber,
-            String name, String phoneNumber, String major,
+            String name, String phoneNumber, Long majorId,
             Role role, String imagePath, String githubUrl) {
 
         checkArgument(email != null, "email  must be provided");
         checkArgument(isNotEmpty(password), "password must be provided");
         checkArgument(isNotEmpty(studentNumber), "studentNumber must be provided");
         checkArgument(isNotEmpty(name), "name must be provided");
-        checkArgument(isNotEmpty(major), "major must be provided");
+        checkArgument(majorId != null, "majorId must be provided");
         checkArgument(role != null, "role must be provided");
 
         this.email = email;
@@ -64,22 +67,10 @@ public class Member {
         this.studentNumber = studentNumber;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.major = major;
+        this.majorId = majorId;
         this.role = role;
         this.imagePath = imagePath;
         this.githubUrl = githubUrl;
-    }
-
-    public Member(
-            Email email, String password, String studentNumber,
-            String name, String major, Role role) {
-        this(email, password, studentNumber, name, null, major, role, null, null);
-    }
-
-    public static Member from(
-            Email email, String password, String studentNumber,
-            String name, String major, Role role){
-       return new Member(email, password, studentNumber, name, major, role);
     }
 
     public void encodePassword(PasswordEncoder passwordEncoder) {
@@ -89,5 +80,15 @@ public class Member {
     public String generateApiToken(Jwt jwt, String[] roles) {
         Jwt.Claims claims = Jwt.Claims.of(id, email,roles);
         return jwt.generateToken(claims);
+    }
+
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("id", id)
+                .append("name", name)
+                .append("studentNumber", studentNumber)
+                .append("email", email)
+                .append("role", role)
+                .toString();
     }
 }
