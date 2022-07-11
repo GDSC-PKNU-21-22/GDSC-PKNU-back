@@ -1,9 +1,14 @@
 package com.gdsc.pknu.backend.domain.member;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serial;
 import java.util.Arrays;
 
 public enum Role {
+    @SerializedName("ROLE_USER")
     USER("ROLE_USER"),
+    @SerializedName("ROLE_ADMIN")
     ADMIN("ROLE_ADMIN");
 
     private final String value;

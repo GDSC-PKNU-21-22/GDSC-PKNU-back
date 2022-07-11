@@ -25,7 +25,7 @@ public class MemberRestController {
     public ApiRes<RegisterResult> register(
             @ModelAttribute RegisterRequest request,
             @RequestPart(required = false)MultipartFile imageFile
-            ){
+    ){
 
         Member member = memberService.register(Member.builder()
                 .email(new Email(request.getEmail()))
