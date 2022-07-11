@@ -44,7 +44,7 @@ class MemberRestControllerTest {
 
     @Test
     @DisplayName("MemberRestControllerTest")
-    void register() throws Exception {
+    void 회원가입_테스트() throws Exception {
         // given
         RegisterRequest reg = RegisterRequest.builder()
                 .email("gdsc@gmail.com")
